@@ -111,7 +111,7 @@ const options = [
         key: 'repo_url',
         desc: 'URL of repo index',
         default:
-            'https://github.com/engineer-man/piston/releases/download/pkgs/index',
+            'https://github.com/dubik/piston/releases/download/pkgs/index',
         validators: [],
     },
 ];

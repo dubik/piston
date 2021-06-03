@@ -1,4 +1,4 @@
-name: 'Package Pushed'
+name: "Package Pushed"
 
 on:
   push:
@@ -8,7 +8,6 @@ on:
     paths:
       - packages/**
 
-
 jobs:
   build-pkg:
     name: Build package
@@ -16,7 +15,7 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      
+
       - name: Login to GitHub registry
         uses: docker/login-action@v1
         with:
@@ -28,12 +27,12 @@ jobs:
         uses: lots0logs/gh-action-get-changed-files@2.1.4
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
-                
+
       - name: Build Packages
         run: |
           PACKAGES=$(jq '.[]' -r ${HOME}/files.json | awk -F/ '{ print $2 "-" $3 }' | sort -u)
           echo "Packages: $PACKAGES"
-          docker run -v "${{ github.workspace }}:/piston" docker.pkg.github.com/engineer-man/piston/repo-builder:latest --no-server $PACKAGES
+          docker run -v "${{ github.workspace }}:/piston" docker.pkg.github.com/dubik/piston/repo-builder:latest --no-server $PACKAGES
           ls -la packages
 
       - name: Upload Packages
@@ -50,11 +49,11 @@ jobs:
     needs: build-pkg
     steps:
       - name: "Download all release assets"
-        run: curl -s https://api.github.com/repos/engineer-man/piston/releases/latest | jq '.assets[].browser_download_url' -r | xargs -L 1 curl -sLO
+        run: curl -s https://api.github.com/repos/dubik/piston/releases/latest | jq '.assets[].browser_download_url' -r | xargs -L 1 curl -sLO
       - name: "Generate index file"
         run: |
           echo "" > index
-          BASEURL=https://github.com/engineer-man/piston/releases/download/pkgs/
+          BASEURL=https://github.com/dubik/piston/releases/download/pkgs/
           for pkg in *.pkg.tar.gz
           do
             PKGFILE=$(basename $pkg)

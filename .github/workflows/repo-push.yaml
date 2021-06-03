@@ -6,7 +6,7 @@ on:
       - v3
     paths:
       - repo/**
-  
+
 jobs:
   push_to_registry:
     runs-on: ubuntu-latest
@@ -28,4 +28,4 @@ jobs:
           pull: true
           push: true
           tags: |
-            docker.pkg.github.com/engineer-man/piston/repo-builder
+            docker.pkg.github.com/dubik/piston/repo-builder
