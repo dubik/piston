@@ -4,8 +4,8 @@ ENV DEBIAN_FRONTEND=noninteractive
 
 RUN dpkg-reconfigure -p critical dash
 RUN for i in $(seq 1001 1500); do \
-        groupadd -g $i runner$i && \
-        useradd -M runner$i -g $i -u $i ; \
+    groupadd -g $i runner$i && \
+    useradd -M runner$i -g $i -u $i ; \
     done
 RUN apt-get update && \
     apt-get install -y libxml2 gnupg tar coreutils util-linux libc6-dev \
