@@ -26,3 +26,4 @@ rm -rf build obj
 
 echo "Creating precompiled header..."
 bin/g++ -std=c++17 -x c++-header -o opt/stdafx_test.h.gch -c opt/stdafx_test.h
+
